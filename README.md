@@ -13,11 +13,11 @@ An archetype helps in automating the basic setup of a microservice. This helps i
 - Read how Maven Archetype plugin works over here - http://maven.apache.org/archetype/maven-archetype-plugin/
 
 ### Setting up Reference Project
-- We have our reference microservice in the folder microservice-reference. This is a Spring Boot Project with an a couple of controllers and unit/integration tests. We will use this as the reference project to reverse engineer an archetype. 
+- We have our reference microservice in the folder microservice-reference. This is a Spring Boot Project with a couple of controllers and unit/integration tests. We will use this as the reference project to reverse engineer an archetype. 
 - When we create a new project using a maven archetype, the two important inputs are groupId and artifactId. In the reference project we would need to make sure that everything that needs to customized based on these inputs should be using similar values. In the microservice-reference, we use the following as the standard:
      - groupId - com.organization.project 
      - artifactId - project-name
-- For example, we call our Spring Boot Application class as ProjectNameApplication. "ProjectName" will be replaced with the artifactId variable. 
+- You would need to customize the reference-project to meet your needs or you can create a new reference-project.
 - Ensure that you configure the latest version of maven-archetype-plugin in your microservice-reference 
 
 ```xml
@@ -31,7 +31,6 @@ An archetype helps in automating the basic setup of a microservice. This helps i
 			</plugins>
 		</pluginManagement>
 	</build>
-
 ```
 
 ### Reverse Engineering an Archetype from microservice-reference
@@ -43,23 +42,30 @@ mvn archetype:create-from-project
 ```
 
 - You will see the following statements in the log
+
 ```
 [INFO] Setting default groupId: com.organization.project
 [INFO] Setting default artifactId: project-name
 [INFO] Setting default version: 0.0.2-SNAPSHOT
 [INFO] Setting default package: com.organization.project
 ```
-- Archetype project created in microservice-reference/target/generated-sources/archetype
+
+Archetype project is created in microservice-reference/target/generated-sources/archetype
 
 ### Copy the created archetype to the microservice-archetype project
+
 - Copy the archetype project created in earlier step to the folder microservice-archetype
 
 ### Install the archetype
+
 - cd to the root of the project and run 
+
 ```
 mvn clean install
 ```
+
 - This will install the archetype to your local repository
+
 ```
 [INFO] Installing /in28Minutes/git/microservice-archetype/microservice-archetype/target/project-name-archetype-0.0.2-SNAPSHOT.jar to /Users/rangaraokaranam/.m2/repository/com/organization/project/project-name-archetype/0.0.2-SNAPSHOT/project-name-archetype-0.0.2-SNAPSHOT.jar
 ```
